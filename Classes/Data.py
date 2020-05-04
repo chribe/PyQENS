@@ -28,8 +28,8 @@ class Data:
             The temperature at which the set temperature was changed (default is Not a Number)
         temperature_final: float
             The temperature of the set temperature(default is Not a Number)
-        x:?? i don't know that it is (default set to Not a Number)
-        y:?? i don't know that it is (default set to Not a Number)
+        x:?? depending on what analysis is performed the value of x and y can change, it is safer to not use it
+        y:??depending on what analysis is performed the value of x and y can change, it is safer to not use it
         sqw: array
             The dynamic structure factor (default is Not a Number)
         dsqw: array
@@ -72,41 +72,47 @@ class Data:
         self.hw = [] if hw is None else hw
         self.run_num = run_num
 
-#    def find_Vanadium(pathraw):
-#        files = os.listdir(pathraw)
-#        Vanadium = [];
-#        for file in files:
-#            if '.nxs' in file:
-#                f_raw = h5py.File(pathraw + file + '.nxs', 'r')
-#                name = [(f_raw['/entry0/subtitle'][0]).decode()]
-#                run_num = [(f_raw['/entry0/run_number'][0])]
-#                if name == 'vanadium' or name == 'Vanadium':
-#                    Vanadium += [run_num]
-#
-#       return Vanadium
+    def find_Vanadium(pathraw):
+        'find the runnumbers of samples called vanadium or Vanadium in a path pathraw'
+        files = os.listdir(pathraw)
+        Vanadium = [];
+        for file in files:
+            if '.nxs' in file:
+                f_raw = h5py.File(pathraw + file + '.nxs', 'r')
+                name = [(f_raw['/entry0/subtitle'][0]).decode()]
+                run_num = [(f_raw['/entry0/run_number'][0])]
+                if name == 'vanadium' or name == 'Vanadium':
+                    Vanadium += [run_num]
 
-#    def find_EmptyCan(pathraw):
-#        files = os.listdir(pathraw)
-#        EmptyCan = []
-#        for file in files:
-#            if '.nxs' in file:
-#                f_raw = h5py.File(pathraw + file + '.nxs', 'r')
-#                name = [(f_raw['/entry0/subtitle'][0]).decode()]
-#                run_num = [(f_raw['/entry0/run_number'][0])]
-#                if name == 'EC' or name == 'EmptyCan':
-#                    EmptyCan += [run_num]
-#        return EmptyCan
+        return Vanadium
 
+    def find_EmptyCan(pathraw):
+        'find the runnumbers of samples called EmptyCan or EC in a path pathraw'
+        files = os.listdir(pathraw)
+        EmptyCan = []
+        for file in files:
+           if '.nxs' in file:
+                f_raw = h5py.File(pathraw + file + '.nxs', 'r')
+                name = [(f_raw['/entry0/subtitle'][0]).decode()]
+                run_num = [(f_raw['/entry0/run_number'][0])]
+                if name == 'EC' or name == 'EmptyCan':
+                    EmptyCan += [run_num]
+        return EmptyCan
     def load_data(self,pathraw, filepath_analysed, Vanadium, EC):
 
         """Load data in the class Measurement
         pathraw is the file path where the raw data are
         filepath_analysed is the file path where the mantid reduced data are
-        sample identifier is a dictionary with:
-        - Sample Name
-        - Set Temperature
-        - run_num is an array of measurements' numbers
-        """
+
+        an instance of the class Data has to be already present, the minimal information to pass to make the code to work is
+        to provide:
+        -the run number (or run numbers) as a list of int (in self.run_num)
+        -the type of measurement ('qens' or 'fws') in self.type ... this will be changed so that you don't have to say the type
+
+        - you can give a name to the selected runs, in samplename.(the name that was written during the measurement is
+         in anycase saved under sample ) it is not required
+         all the other informations will be stored automatically
+                """
         if os.path.exists(filepath_analysed) == False:
             os.makedirs(filepath_analysed)
             print("Attention! The folder was not existing. Created new folder" + filepath_analysed)
@@ -119,7 +125,7 @@ class Data:
         if len(self.run_num) > 1:
             name_save_reduced_file = str(self.run_num[0]) + '_' + str(
                 self.run_num[len(self.run_num) - 1])
-        #print(name_save_reduced_file)
+        #runs is a string containing all the files, which is an input of the function to reduce the data   MTD.IndirectILLReductionFWS
         runs = ''
         for r in self.run_num:
             runs = runs+pathraw+str(r)+'.nxs,'
