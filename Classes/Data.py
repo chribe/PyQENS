@@ -1,9 +1,10 @@
 import numpy as np
 import h5py
 import datetime
+import matplotlib.pyplot as plt
 import mantid.simpleapi as MTD
 import os
-
+from scipy.optimize import curve_fit
 class Data:
     """this is a container for the data collected in multiple or single run and information regarding that measurement
         Attributes
@@ -38,9 +39,14 @@ class Data:
             the value of the scattering vector at which the data were collected
         hw: the energy transfer for this measurement
 
+        Fit:list of fits
+
         Methods
         -------
-        calculate_MSD to be implemented
+        -load data
+        -calculate_msd
+        -clean_nonsense
+        -get_values_qens
         """
 
     # initialising the class. written so you can also put values in it if you have already loaded the data in another variable by writing:
@@ -48,10 +54,27 @@ class Data:
     # Measurement(sample:'Ig with whatever',type:'fws', temperature:300)
     # with this an instance of the class Measurement is created and has default values for every attribute except  sample,type and temperature
 
-    def __init__(self, namesample='', sample=[], type=[], temperature=[], time=[],
-                 end_time=[], time_delta=[], time_initial=[],
-                 temperature_initial=[], temperature_final=[], set_temperature=np.NaN, x=None, y=None, sqw=None,
-                 dsqw=None, q=None, hw=None, run_num=[]):
+    def __init__(self,
+                 namesample='',
+                 sample=[],
+                 type=[],
+                 temperature=[],
+                 time=[],
+                 end_time=[],
+                 time_delta=[],
+                 time_initial=[],
+                 temperature_initial=[],
+                 temperature_final=[],
+                 set_temperature=np.NaN,
+                 x=None,
+                 y=None,
+                 sqw=None,
+                 dsqw=None,
+                 q=None,
+                 hw=None,
+                 run_num=[],
+                 MSD=[],
+                 dMSD=[]):
         # initialising all the variables
         self.namesample = namesample
         self.sample = sample
@@ -71,6 +94,8 @@ class Data:
         self.q = [] if q is None else q
         self.hw = [] if hw is None else hw
         self.run_num = run_num
+        self.MSD=MSD
+        self.dMSD = dMSD
 
     def find_Vanadium(pathraw):
         'find the runnumbers of samples called vanadium or Vanadium in a path pathraw'
@@ -98,8 +123,8 @@ class Data:
                 if name == 'EC' or name == 'EmptyCan':
                     EmptyCan += [run_num]
         return EmptyCan
-    def load_data(self,pathraw, filepath_analysed, Vanadium, EC):
 
+    def load_data(self, pathraw, filepath_analysed, Vanadium, EC):
         """Load data in the class Measurement
         pathraw is the file path where the raw data are
         filepath_analysed is the file path where the mantid reduced data are
@@ -172,15 +197,22 @@ class Data:
         self.hw = np.squeeze(self.hw)
 
         print('data raw loading')
-
+        self.sample = []
+        self.temperature = []
+        self.temperature_final = []
+        self.time = []
+        self.time_delta = []
+        self.end_time = []
         for run_nm in self.run_num:
             # load some data from the raw data
+            f_raw = []
+
             f_raw = h5py.File(pathraw + str(run_nm) + '.nxs', 'r')
             print('loading raw data from run '+str(run_nm))
             self.sample += [(f_raw['/entry0/subtitle'][0]).decode()]
-            self.temperature += np.squeeze([(f_raw['/entry0/sample/temperature'][0])])
+            self.temperature += [np.squeeze([(f_raw['/entry0/sample/temperature'])])]
             self.time += [datetime.datetime.strptime(str(f_raw['/entry0/start_time/'][0])[2:-1], "%d-%b-%y %H:%M:%S")]
-            self.temperature_final += np.squeeze( [(f_raw['/entry0/sample/setpoint_temperature'][0])])
+            self.temperature_final += [np.squeeze( [(f_raw['/entry0/sample/setpoint_temperature'])])]
             self.end_time += [datetime.datetime.strptime(str(f_raw['/entry0/end_time/'][0])[2:-1], "%d-%b-%y %H:%M:%S")]
             # self.run_num += [(f_raw['/entry0/run_number'][0])]
             #maxEnergytrans = np.squeeze([np.array(f_raw['/entry0/instrument/Doppler/maximum_delta_energy/'])])
@@ -189,3 +221,76 @@ class Data:
             #    self.type += ['fws']
             #else:
             #    self.type += ['qens']
+
+    def calculate_MSD(self):
+        if 'qens' in self.type:
+            def line(m,q,x):
+                return q-m*x
+
+            self.MSD=[]
+            self.dMSD = []
+
+            plt.figure()
+            popt, pcov = curve_fit(line, self.q[2:] ** 2, np.squeeze(self.sqw[self.hw ==0 ,2: ]),
+                                 bounds=(0, [.1, 1]), ftol=1e-14, xtol=1e-14 )
+
+            plt.errorbar( self.q[2:]**2, y=np.squeeze(self.sqw[[int(np.round(len(self.hw)/2)-1),int(np.round(len(self.hw)/2)),int(np.round(len(self.hw)/2)+1)],2:].mean(axis=0)),
+                          yerr=np.squeeze(self.dsqw[self.hw ==0,2:]), marker='o', linestyle='--')
+            plt.plot(self.q**2, popt[0] - popt[1] * self.q**2)
+            plt.xlabel(r'q [\AA^{2}]')
+            plt.ylabel(r'S(q,hw=0)')
+            self.MSD += [popt[1] * 3]
+            self.dMSD += [np.sqrt(np.diag(pcov))[1] * 3]
+            print('the MSD is'+str([popt[1] * 3])+'\pm'+str([np.sqrt(np.diag(pcov))[1] * 3]) )
+
+        if self.type=='fws':
+            for i in range(len(self.hw)):
+                if self.hw[i]!=0:
+                    print('The fws scans used are not elastic. Choose an elastic scan to calculate the MSD')
+
+                elif self.hw[i] == 0:
+
+                    popt, pcov = curve_fit(line, self.q**2, ydata=np.squeeze(self.sqw[:, i]),sigma=np.squeeze(self.dsqw[:, i] **(-2)),
+                                           bounds=(0, [.1, 1]), ftol=1e-14, xtol=1e-14 )
+                    self.MSD +=[-popt[1]*3]
+                    self.dMSD += [np.sqrt(np.diag(pcov))[1]*3]
+                    #plt.errorbar( self.q**2, ydata=self.sqw[:, i],sigma=self.dsqw[:, i] **(-2), marker='o', linestyle='--')
+                    #plt.plot(self.q**2, popt[0] + popt[1] * self.q**2)
+                    #plt.xlabel(r'q [\AA^{2}]')
+                    #plt.ylabel(r'S(q,hw=0)')
+
+    def clean_nonsense(self):
+        self.sqw[np.isnan(self.sqw)] = 0
+        self.sqw[np.isinf(self.sqw)] = 0
+        self.sqw[self.sqw < 5e-7 * self.sqw.max()] = 0  # reasonable signal-to-noise range
+        self.dsqw[np.isnan(self.sqw)] = np.inf
+        self.dsqw[np.isinf(self.sqw)] = np.inf
+        self.dsqw[np.isnan(self.dsqw)] = np.inf
+        self.dsqw[self.sqw == 0] = np.inf  # no signal at all should have infinite error
+        self.dsqw[self.dsqw == 0] = np.inf  # "a measurement without error is nonsense"
+
+    def get_values_qens(self):
+        'returns the values of q,hw,sqw,dsqw,sqw_copy,dsqw_copy the last two are simply a copy of sqw,dsqw'
+        q = self.q.copy()
+        hw   = self.hw.copy()
+        sqw  = self.sqw.copy()
+        dsqw = self.dsqw.copy()
+        sqw_copy = self.sqw.copy()
+        dsqw_copy= self.dsqw.copy()
+        return q,hw,sqw,dsqw,sqw_copy,dsqw_copy
+
+    def subtract_sqw(self,data):
+        'function to subtract the S(q,hw) of a measurement data from a dataset (self)'
+        self.sqw = self.sqw-data.sqw
+        self.dsqw =(self.dsqw**2+data.dsqw**2)**(1/2)
+
+    def subtract_sqw_with_factor(self,data,factor):
+        """function to subtract the S(q,hw) of a measurement data(instance of the class Data) from a dataset (self)
+
+        factor is an array with 18 float or int (one each q) for a q dependent weight in the subtraction
+
+        """
+        for i in range(len(self.q)):
+            self.sqw[:,i] = self.sqw[:,i] - factor[i]*data.sqw[:,i]
+            self.dsqw[:,i] = (self.dsqw[:,i] ** 2 + (factor[i]*data.dsqw[:,i]) ** 2) ** (1 / 2)
+
