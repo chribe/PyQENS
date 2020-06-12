@@ -11,3 +11,7 @@ Overview of folder contents:
 * [discussions](discussions): contains notes from different skype meetings
 * [code](Code): contains different folders with different versions of code:
   * [0.0.1](Code/0.0.1/): First version of code which is able to perform fits on a q level.  Fits which take into account the q dependence are also implemented, but are not yet converging
+
+Contact:
+--------
+christian.beck@uni-tuebingen.de
