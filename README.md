@@ -10,4 +10,4 @@ Overview of folder contents:
 * [Manual](Manual): Folder with LaTeX files for the Manual
 * discussions: contains notes 
 * [code](code): contains different folders with different versions of code:
-  * [0.0.1](code/0.0.1/): First version of code which is able to perform fits on a q level.  Fits which take into account the q dependence are also implemented, but are not yet converging
+  * [0.0.1](Code/0.0.1/): First version of code which is able to perform fits on a q level.  Fits which take into account the q dependence are also implemented, but are not yet converging
