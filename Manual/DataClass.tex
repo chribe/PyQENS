@@ -1,0 +1,25 @@
+\section{Data Class}
+\label{DATA}
+\begin{figure}
+\begin{tikzpicture}
+[
+grow                    = right,
+sibling distance        = 6em,
+level distance          = 10em,
+edge from parent/.style = {draw, -latex},
+every node/.style       = {font=\footnotesize},
+sloped
+]
+\node [data] {Data Class}
+child { node [fit] {\hyperref[FIT]{fit class}\\\vdots}}
+child { node [entry] {runnumbers}}
+child { node [entry] {filename}}
+child { node [entry] {start time}}
+child { node [entry] {end time}}
+child { node [entry] {duration}}
+child { node [entry] {type}}
+;
+\end{tikzpicture}
+\caption{Graphical overview of the structure of the data class}
+\label{Pic:DATA:Overview}
+\end{figure}

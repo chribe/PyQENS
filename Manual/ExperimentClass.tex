@@ -1,0 +1,24 @@
+\section{Experiment Class}
+\begin{figure}
+	\begin{tikzpicture}
+	[
+	grow                    = right,
+	sibling distance        = 3em,
+	level distance          = 15em,
+	edge from parent/.style = {draw, -latex},
+	every node/.style       = {font=\footnotesize},
+	sloped
+	]
+	\node [exp] {Experiment Class}
+	child { node [sample] {\hyperref[SAMPLE]{Sample class}\\\vdots}}
+	child{node[sample]{Vanadium}}
+	child{node[sample]{EmptyCan}}
+	child{node[sample]{Solvent}}
+	child{node[entry]{container}}
+	child{node[entry]{beamtime}}
+	child{node[entry]{instrument}}
+	;
+	\end{tikzpicture}
+	\caption{Graphical overview of the structure of the Experiment class}
+	\label{Pic:Experiment:Overview}
+\end{figure}

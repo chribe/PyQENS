@@ -1,0 +1,12 @@
+\section{Introduction}
+This document is a manual for the python routines called \PyQENS. The routines are mend for analyzing \gls{qens} spectra of samples containing diffusive processes such as protein samples (powders, solutions), as well as colloidal suspensions, etc.
+
+The software is written in such a way, that it can treat spectra from different instruments including \gls{nbs} as well as \gls{tof} measurements. It can also treat \gls{fws} with several analysis methods or can include these measurements in the analysis of the full \gls{qens} spectra to improve the fits.
+
+\section{Software Requirements}
+\label{Software}
+The \PyQENS\, routines are written for Python\,3. Some parts of the routines are based on Mantid \cite{Arnold2014}. To have full functionality of the routines, it is necessary, that the Python version matches the one of Mantid. It should also be possible to run the scripts in the Mantid-workbench \added{To be tested!!}. The main part of the scripts is however thought as standalone and can be run without a Mantid installations.
+\section{A general comment on fit complexity}
+\label{CommentFitparameters}
+The routines of \PyQENS\, use fits in two different ways. The first type of fits use an excess of fit parameters to obtain a description of the data set which matches as good as possible. This can be used in the case of the resolution function (see Section \ref{FIT:VANADIUM}) \cite{Grimaldo_2015_JPhysChemLett} or might also be applied in the case of the solvent. These parameters might have big uncertainties and are normally not linked directly to physical meaningful parameters. However, since the whole parameter set is fixed to these constants in later fits, an accurate description can result in improved fit results at the end.
+

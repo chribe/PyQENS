@@ -1,0 +1,62 @@
+\begin{thebibliography}{1}
+
+\bibitem{Arnold2014}
+O.~Arnold, J.C. Bilheux, J.M. Borreguero, A.~Buts, S.I. Campbell, L.~Chapon,
+  M.~Doucet, N.~Draper, R.~Ferraz Leal, M.A. Gigg, V.E. Lynch, A.~Markvardsen,
+  D.J. Mikkelson, R.L. Mikkelson, R.~Miller, K.~Palmen, P.~Parker, G.~Passos,
+  T.G. Perring, P.F. Peterson, S.~Ren, M.A. Reuter, A.T. Savici, J.W. Taylor,
+  R.J. Taylor, R.~Tolchenov, W.~Zhou, and J.~Zikovsky.
+\newblock Mantid{\textemdash}data analysis and visualization package for
+  neutron scattering and$\upmu${SR} experiments.
+\newblock {\em Nuclear Instruments and Methods in Physics Research Section A:
+  Accelerators, Spectrometers, Detectors and Associated Equipment},
+  764:156--166, November 2014.
+
+\bibitem{Beck_2018_JPhysChemB}
+Christian Beck, Marco Grimaldo, Felix Roosen-Runge, Michal~K. Braun, Fajun
+  Zhang, Frank Schreiber, and Tilo Seydel.
+\newblock Nanosecond tracer diffusion as a probe of the solution structure and
+  molecular mobility of protein assemblies: The case of ovalbumin.
+\newblock {\em J. Phys. Chem. B}, 122(35):8343--8350, 2018.
+
+\bibitem{Beck_2019_CrystGrowthDes}
+Christian Beck, Marco Grimaldo, Felix Roosen-Runge, Ralph Maier, Olga
+  Matsarskaia, Michal Braun, Benedikt Sohmen, Orsolya Czakkel, Ralf Schweins,
+  Fajun Zhang, Tilo Seydel, and Frank Schreiber.
+\newblock Following protein dynamics in real time during crystallization.
+\newblock {\em Cryst. Growth Des.}, 19(12):7036--7045, 2019.
+
+\bibitem{Grimaldo_2015_PhysChemChemPhys}
+Marco Grimaldo, Felix Roosen-Runge, Marcus Hennig, Fabio Zanini, Fajun Zhang,
+  Niina Jalarvo, Michaela Zamponi, Frank Schreiber, and Tilo Seydel.
+\newblock Hierarchical molecular dynamics of bovine serum albumin in
+  concentrated aqueous solution below and above thermal denaturation.
+\newblock {\em Phys. Chem. Chem. Phys.}, 17(6):4645--4655, 2015.
+
+\bibitem{Grimaldo_2015_JPhysChemLett}
+Marco Grimaldo, Felix Roosen-Runge, Marcus Hennig, Fabio Zanini, Fajun Zhang,
+  Michaela Zamponi, Niina Jalarvo, Frank Schreiber, and Tilo Seydel.
+\newblock Salt-induced universal slowing down of the short-time self-diffusion
+  of a globular protein in aqueous solution.
+\newblock {\em J. Phys. Chem. Lett.}, 6(13):2577--2582, 2015.
+
+\bibitem{Grimaldo_2015_EPJWebofConferences}
+Marco Grimaldo, Felix Roosen-Runge, Niina Jalarvo, Michaela Zamponi, Fabio
+  Zanini, Marcus Hennig, Fajun Zhang, Frank Schreiber, Tilo Seydel, B.~Frick,
+  M.~M. Koza, M.~Boehm, and H.~Mutka.
+\newblock High-resolution neutron spectroscopy on protein solution samples.
+\newblock {\em EPJ Web of Conferences}, 83:02005, 2015.
+
+\bibitem{Grimaldo_2019_QuartRevBiophys}
+Marco Grimaldo, Felix Roosen-Runge, Fajun Zhang, Frank Schreiber, and Tilo
+  Seydel.
+\newblock Dynamics of proteins in solution.
+\newblock {\em Quart. Rev. Biophys.}, 52, 2019.
+
+\bibitem{Roosen-Runge2016}
+Felix Roosen-Runge, Dominique~J. Bicout, and Jean-Louis Barrat.
+\newblock Analytical correlation functions for motion through diffusivity
+  landscapes.
+\newblock {\em The Journal of Chemical Physics}, 144(20):204109, 2016.
+
+\end{thebibliography}

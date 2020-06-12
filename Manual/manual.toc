@@ -1,0 +1,23 @@
+\contentsline {section}{\numberline {1}Introduction}{3}{section.1}
+\contentsline {section}{\numberline {2}Software Requirements}{3}{section.2}
+\contentsline {section}{\numberline {3}A general comment on fit complexity}{3}{section.3}
+\contentsline {section}{\numberline {4}TODO}{4}{section.4}
+\contentsline {section}{\numberline {5}The main script}{5}{section.5}
+\contentsline {subsection}{\numberline {5.1}The Protocol}{5}{subsection.5.1}
+\contentsline {section}{\numberline {6}Experiment Class}{6}{section.6}
+\contentsline {section}{\numberline {7}Sample Class}{7}{section.7}
+\contentsline {section}{\numberline {8}Data Class}{8}{section.8}
+\contentsline {section}{\numberline {9}The Fit Class}{10}{section.9}
+\contentsline {subsection}{\numberline {9.1}The Resolution function}{10}{subsection.9.1}
+\contentsline {subsection}{\numberline {9.2}The Fit levels for QENS spectra}{10}{subsection.9.2}
+\contentsline {subsection}{\numberline {9.3}The different implemented fit models}{10}{subsection.9.3}
+\contentsline {subsection}{\numberline {9.4}Solvent handling}{12}{subsection.9.4}
+\contentsline {subsubsection}{\numberline {9.4.1}Solvent treatment}{12}{subsubsection.9.4.1}
+\contentsline {subsubsection}{\numberline {9.4.2}Solvent rescaling}{12}{subsubsection.9.4.2}
+\contentsline {subsubsection}{\numberline {9.4.3}Solvent modeling}{13}{subsubsection.9.4.3}
+\contentsline {section}{\numberline {10}Plot and saving options}{14}{section.10}
+\contentsline {section}{Appendix}{15}{section*.2}
+\contentsline {section}{\numberline {A}Overview of flags to control script}{16}{appendix.A}
+\contentsline {section}{\numberline {B}Index}{17}{appendix.B}
+\contentsline {section}{\numberline {C}Glossary}{17}{appendix.C}
+\contentsline {section}{\numberline {D}Literature}{17}{appendix.D}

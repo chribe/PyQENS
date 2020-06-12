@@ -1,0 +1,32 @@
+\section{Sample Class}
+\begin{figure}
+	\begin{tikzpicture}
+	[
+	grow                    = right,
+	sibling distance        = 3em,
+	level distance          = 15em,
+	edge from parent/.style = {draw, -latex},
+	every node/.style       = {font=\footnotesize},
+	sloped
+	]
+	\node [sample] {Sample Class}
+	child { node [data] {\hyperref[DATA]{data class}\\\vdots}}
+	child { node [entry] {filename}}
+	child { node [entry] {binning type}}
+	child{node [entry] {run properties}
+		child { node [entry] {runnumbers}}
+		child { node [entry] {start time}}
+		child { node [entry] {end time}}
+		child { node [entry] {duration}}
+		child { node [entry] {type}}
+	}
+	child { node [entry] {volume fraction}}
+	child { node [entry] {Sample composition}}
+	child { node [entry] {Sample name}}
+	child { node [entry] {Container}}
+	child { node [entry] {instrument}}
+	;
+	\end{tikzpicture}
+	\caption{Graphical overview of the structure of the sample class}
+	\label{Pic:SAMPLE:Overview}
+\end{figure}

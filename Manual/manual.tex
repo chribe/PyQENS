@@ -1,0 +1,54 @@
+\immediate\write18{makeindex manual}
+\immediate\write18{makeglossaries manual}
+\documentclass{article}
+\usepackage{authblk}
+\usepackage{changes}
+\usepackage[nonewpage]{imakeidx}
+\usepackage{amsmath}
+\usepackage{mathrsfs}
+\usepackage{amsfonts}
+\usepackage{hyperref}
+\usepackage{lscape}
+\usepackage{upgreek}
+\usepackage[acronym]{glossaries}
+\usepackage{tikz}
+\tikzset{
+	treenode/.style = {shape=rectangle, rounded corners,
+		draw, align=center,
+		top color=white, bottom color=blue!20},
+	exp/.style     = {treenode, font=\Large, bottom color=orange!30},
+	data/.style     = {treenode, font=\Large, bottom color=red!30},
+	sample/.style      = {treenode, font=\Large,bottom color=blue!30},
+	fit/.style      = {treenode, font=\Large,bottom color=green!30},
+	entry/.style      = {treenode, font=\Large,bottom color=white}
+}
+%%%%%%%%%%%%% new commands
+\newcommand{\code}[1]{\mbox{\textcolor{red!90}{#1}}}
+\newcommand{\file}[1]{\mbox{\textcolor{green}{#1}}}
+\newcommand{\argument}[1]{\mbox{\textcolor{cyan}{#1}}}
+\newcommand{\function}[1]{\mbox{\textcolor{orange}{#1}}}
+\newcommand{\PyQENS}{{\it\bf PyQENS}}
+%%%%%%%%%%%%%%%%%%%%%%%% title information
+\author[1,2]{Christian Beck\thanks{ORCID: \href{https://orcid.org/0000-0001-7214-3447}{0000-0001-7214-3447}; mail: \href{mailto:christian.beck@uni-tuebingen.de}{christian.beck@uni-tuebingen.de}}}
+\affil[1]{Institut f\"ur Angewandte Physik, Universit\"at T\"ubingen,  Auf der Morgenstelle 10, 72076 T\"ubingen, Germany}
+\affil[2]{Institut Max von Laue - Paul Langevin, 71 avenue des Martyrs, 38042 Grenoble, France}
+
+\title{\PyQENS\\A python toolbox for fitting QENS Data}
+%%%%%%%%%%%%%other stuff
+\makeindex[title=\,] % for index
+\makeglossaries % for glossary
+\input{Glossaryentries}
+\begin{document}
+	\maketitle
+	\newpage
+	\tableofcontents
+	\include{introduction}
+	\include{TODO}
+	\include{mainscript}
+	\include{ExperimentClass}
+	\include{SampleClass}
+	\include{DataClass}
+	\include{FitClass}
+	\include{Saveoptions}
+	\include{Appendix}
+\end{document}
