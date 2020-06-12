@@ -8,4 +8,4 @@ Overview of folder contents:
 ----------------------------
 
 
-![Build Status](http://builds.mantidproject.org/job/master_incremental/badge/icon)]
+[![Build Status](http://builds.mantidproject.org/job/master_incremental/badge/icon)]
