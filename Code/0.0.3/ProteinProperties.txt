@@ -1,0 +1,2 @@
+BSA;0.735; 293.15;66431.5; 'Biochemistry,Vol.13,No.2,1974'
+BLG;0.74;295;19883;Fischer et al., Protein Science, 2004, 'Average protein density is a Mw-dep. function'
